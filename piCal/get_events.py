@@ -13,7 +13,7 @@ from googleapiclient.errors import HttpError
 SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
 
-def get_events():
+def get_events(calender_ids):
     """Shows basic usage of the Google Calendar API.
     Prints the start and name of the next 10 events on the user's calendar.
     """
@@ -40,31 +40,35 @@ def get_events():
 
         # Call the Calendar API
         now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
-        print('Getting the upcoming 10 events')
-        events_result = service.events().list(calendarId='6e56207b41dd787f37a38aa0794de8dab5243c611088ca04ad54ac9c478abbdb@group.calendar.google.com', timeMin=now,
-                                              maxResults=1000, singleEvents=True,
-                                              orderBy='startTime').execute()
-        
-        events = events_result.get('items', [])
+        all_es = []
+        for calender_id in calender_ids:
+            events_result = service.events().list(calendarId=calender_id, timeMin=now,
+                                                  maxResults=1000, singleEvents=True,
+                                                  orderBy='startTime').execute()
 
-        if not events:
-            print('No upcoming events found.')
-            return
+            events = events_result.get('items', [])
 
-        # Prints the start and name of the next 10 events
-        es = []
-        for event in events:
-            start = event['start'].get('dateTime', event['start'].get('date'))
-            end = event['end'].get('dateTime', event['end'].get('date'))
-            es.append({'start':event['start'].get('dateTime', event['start'].get('date')), 'end':event['end'].get('dateTime', event['end'].get('date')), 'name':event['summary']})
-            print('from', start, 'to',  end,  event['summary'])
-            
-        return es
+
+            # Prints the start and name of the next 10 events
+            es = []
+            for event in events:
+                start = event['start'].get('dateTime', event['start'].get('date'))
+                end = event['end'].get('dateTime', event['end'].get('date'))
+                es.append({'start':event['start'].get('dateTime', event['start'].get('date')), 'end':event['end'].get('dateTime', event['end'].get('date')), 'name':event['summary']})
+                print('from', start, 'to',  end,  event['summary'])
+            all_es.append(es)
+
+
+
+        return all_es
 
     except HttpError as error:
         print('An error occurred: %s' % error)
+        return [[None], [None]]
 
 
 if __name__ == '__main__':
-    events = get_events()
+    calendar_ids = ['6e56207b41dd787f37a38aa0794de8dab5243c611088ca04ad54ac9c478abbdb@group.calendar.google.com', 'en.uk#holiday@group.v.calendar.google.com']
+    events, holidays = get_events(calendar_ids)
     print(events)
+    print(holidays)
