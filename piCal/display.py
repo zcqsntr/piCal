@@ -24,7 +24,8 @@ if os.path.exists(libdir):
     sys.path.append(libdir)
 
 import logging
-from waveshare_epd import epd7in5b_V2
+#from waveshare_epd import epd7in5b_V2
+from waveshare_epd import epd7in5_V2
 import time
 from PIL import Image,ImageDraw,ImageFont
 import traceback
@@ -44,7 +45,7 @@ logging.basicConfig(level=logging.DEBUG)
 try:
     logging.info("epd7in5b_V2 Demo")
 
-    epd = epd7in5b_V2.EPD()
+    epd = epd7in5_V2.EPD()
     logging.info("init and Clear")
     epd.init()
     epd.Clear()
