@@ -10,7 +10,9 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+
 from get_events import get_events
+from get_weather import get_weather
 
 import sys
 import os
@@ -29,11 +31,15 @@ import traceback
 
 
 
-events = get_events()
-print(events)
+calendar_ids = ['6e56207b41dd787f37a38aa0794de8dab5243c611088ca04ad54ac9c478abbdb@group.calendar.google.com', 'en.uk#holiday@group.v.calendar.google.com']
+events, holidays = get_events(calendar_ids)
+weather = get_weather()
+print(events, holidays, weather)
     
 
 logging.basicConfig(level=logging.DEBUG)
+
+
 
 try:
     logging.info("epd7in5b_V2 Demo")
