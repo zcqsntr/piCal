@@ -8,9 +8,8 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
+import json
 
-# If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
 
 
 def get_events(calender_ids):
@@ -68,7 +67,12 @@ def get_events(calender_ids):
 
 
 if __name__ == '__main__':
+    # If modifying these scopes, delete the file token.json.
+    SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
+
     calendar_ids = ['6e56207b41dd787f37a38aa0794de8dab5243c611088ca04ad54ac9c478abbdb@group.calendar.google.com', 'en.uk#holiday@group.v.calendar.google.com']
     events, holidays = get_events(calendar_ids)
     print(events)
     print(holidays)
+    json.dump(holidays, open('data/holidays.json', 'w+'))
+    json.dump(events, open('data/events.json', 'w+'))
