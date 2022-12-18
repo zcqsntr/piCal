@@ -91,16 +91,16 @@ def draw_calendar(image_black, image_red, events, holidays):
     day_h = day_w
     cal_x = 0
     cal_y = 50
-    title_h = 35
-    event_h = 35
+    title_h = 55
+    event_h = 25
 
     big_size = 36
     big_font = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), big_size)
 
-    day_size = 18
+    day_size = 25
     day_font = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), day_size)
 
-    event_size = 16
+    event_size = 20
     event_font = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), event_size)
 
     draw_black.text((0, 0), '{} {} {} {}'.format(weekdays[now.weekday()], now.day, months[now.month-1], now.year), font=big_font)
@@ -113,7 +113,7 @@ def draw_calendar(image_black, image_red, events, holidays):
         if i < 4:
             draw_black.rectangle((cal_x+i*day_w, cal_y, cal_x+(i+1)*day_w, cal_y+day_h), fill=1, outline=0)
             draw_black.rectangle((cal_x+i*day_w, cal_y, cal_x+(i+1)*day_w, cal_y+title_h), fill=1, outline=0)
-            draw_black.text((cal_x+i*day_w+25, cal_y),'{}  {}'.format(day, now.day + i),font = day_font)
+            draw_black.text((cal_x+i*day_w+2, cal_y),'{1}\n{0}'.format(day, now.day + i),font = day_font)
             
         else:
             print((cal_x+(i-4)*day_w, cal_y + day_h, cal_x+(i-3)*day_w, cal_y+day_h))
@@ -121,7 +121,7 @@ def draw_calendar(image_black, image_red, events, holidays):
             
             draw_black.rectangle((cal_x+(i-4)*day_w, cal_y + day_h, cal_x+(i-3)*day_w, cal_y+day_h+title_h), fill=1, outline=0)
             
-            draw_black.text((cal_x+(i-4)*day_w+25, cal_y + day_h),'{}  {}'.format(day, now.day + i),font = day_font)
+            draw_black.text((cal_x+(i-4)*day_w+2, cal_y + day_h),'{1}\n{0}'.format(day, now.day + i),font = day_font)
             
 
     event_counts = [0]*7
@@ -170,7 +170,7 @@ image_black, image_red = draw_calendar(image_black, image_red, events, holidays)
 
 epd.display(epd.getbuffer(image_black))
 time.sleep(10)
-#epd.Clear()
+epd.Clear()
 
 image_black.save('images/image_black.png')
 image_red.save('images/image_red.png')
