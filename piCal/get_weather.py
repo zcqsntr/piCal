@@ -1,5 +1,4 @@
-
-
+import json
 
 import requests
 
@@ -28,6 +27,7 @@ def get_weather():
     return daily_weather
 
 
-print(get_weather())
-print(len(get_weather()))
+weather = get_weather()
+json.dump(weather, open('data/weather.json', 'w+'))
+
 
