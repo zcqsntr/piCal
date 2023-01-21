@@ -24,7 +24,9 @@ def get_events(calender_ids):
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
     if not creds or not creds.valid:
+
         if creds and creds.expired and creds.refresh_token:
+            print('hello', creds and creds.expired and creds.refresh_token)
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
@@ -33,6 +35,8 @@ def get_events(calender_ids):
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
+
+
 
     try:
         service = build('calendar', 'v3', credentials=creds)
@@ -47,7 +51,6 @@ def get_events(calender_ids):
 
             events = events_result.get('items', [])
 
-
             # Prints the start and name of the next 10 events
             es = []
             for event in events:
@@ -56,8 +59,6 @@ def get_events(calender_ids):
                 es.append({'start':event['start'].get('dateTime', event['start'].get('date')), 'end':event['end'].get('dateTime', event['end'].get('date')), 'name':event['summary']})
                 print('from', start, 'to',  end,  event['summary'])
             all_es.append(es)
-
-
 
         return all_es
 
