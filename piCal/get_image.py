@@ -50,7 +50,12 @@ class CalDraw():
 
         self.image_black = Image.new('1', (self.width, self.height), 255)  # 255: clear the frame
         self.image_red = Image.new('1', (self.width, self.height), 255)  # 255: clear the frame
-
+    
+    def format_time(self, time):
+        if time < 10:
+            return '0' + str(time)
+        else:
+            return str(time)
 
     def add_events(self, events, event_counts, holidays = False):
 
@@ -82,9 +87,10 @@ class CalDraw():
 
 
                 if not holidays:
-                    print(start.hour)
+                    
+                    
                     draw_black.text((pos_x, pos_y),
-                                '{1}:{2}-{3}:{4} \n  {0}'.format(event['name'][:20], start.hour, start.minute, end.hour, end.minute),
+                                ' {0}\n    {1}:{2}-{3}:{4}'.format(event['name'][:21], self.format_time(start.hour), self.format_time(start.minute), self.format_time(end.hour),self.format_time(end.minute)),
                                 font=self.event_font)
                     event_counts[diff] += 2
                 else:
@@ -108,22 +114,25 @@ class CalDraw():
 
         draw_black.text((0, 0), '{} {} {} {}'.format(weekdays[now.weekday()], now.day, months[now.month-1], now.year), font=self.big_font)
 
-
+        linewidth = 1
         for i in range(7):
 
             day_ind = (i+now.weekday())%7
             day = weekdays[day_ind]
+            new_date = now + timedelta(days = i)
             if i < 4:
-                draw_black.rectangle((self.cal_x+i*self.day_w, self.cal_y, self.cal_x+(i+1)*self.day_w, self.cal_y+self.day_h), fill=1, outline=0)
-                draw_black.rectangle((self.cal_x+i*self.day_w, self.cal_y, self.cal_x+(i+1)*self.day_w, self.cal_y+self.title_h), fill=1, outline=0)
-                draw_black.text((self.cal_x+i*self.day_w+2, self.cal_y),'{1}\n{0}'.format(day, now.day + i),font = self.day_font)
+                draw_black.rectangle((self.cal_x+i*self.day_w, self.cal_y, self.cal_x+(i+1)*self.day_w, self.cal_y+self.day_h), fill=1, outline=0, width = linewidth)
+                draw_black.rectangle((self.cal_x+i*self.day_w, self.cal_y, self.cal_x+(i+1)*self.day_w, self.cal_y+self.title_h), fill=1, outline=0, width = linewidth)
+                
+                
+                draw_black.text((self.cal_x+i*self.day_w+2, self.cal_y),' {1}\n {0}'.format(day, new_date.day),font = self.day_font)
 
             else:
                 print((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h, self.cal_x+(i-3)*self.day_w, self.cal_y+self.day_h))
-                draw_black.rectangle((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h, self.cal_x+(i-3)*self.day_w, self.cal_y+2*self.day_h), fill=1, outline=0)
-                draw_black.rectangle((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h, self.cal_x+(i-3)*self.day_w, self.cal_y+self.day_h+self.title_h), fill=1, outline=0)
+                draw_black.rectangle((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h, self.cal_x+(i-3)*self.day_w, self.cal_y+2*self.day_h), fill=1, outline=0, width = linewidth)
+                draw_black.rectangle((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h, self.cal_x+(i-3)*self.day_w, self.cal_y+self.day_h+self.title_h), fill=1, outline=0, width = linewidth)
 
-                draw_black.text((self.cal_x+(i-4)*self.day_w+2, self.cal_y + self.day_h),'{1}\n{0}'.format(day, now.day + i),font = self.day_font)
+                draw_black.text((self.cal_x+(i-4)*self.day_w+2, self.cal_y + self.day_h),' {1}\n {0}'.format(day, new_date.day),font = self.day_font)
 
 
         event_counts = [0]*7
