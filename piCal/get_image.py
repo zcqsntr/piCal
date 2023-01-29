@@ -84,7 +84,7 @@ class CalDraw():
                 if not holidays:
                     print(start.hour)
                     draw_black.text((pos_x, pos_y),
-                                '{1}:{2}-{3}:{4} \n   {0}'.format(event['name'], start.hour, start.minute, end.hour, end.minute),
+                                '{1}:{2}-{3}:{4} \n  {0}'.format(event['name'][:20], start.hour, start.minute, end.hour, end.minute),
                                 font=self.event_font)
                     event_counts[diff] += 2
                 else:
