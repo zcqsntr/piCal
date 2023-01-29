@@ -78,7 +78,7 @@ class CalDraw():
                     pos_y = self.cal_y + self.title_h + 1 + event_counts[diff] * self.event_h
                 else:
                     pos_x = self.cal_x + (diff-4) * self.day_w + 1
-                    pos_y = self.cal_y + self.title_h + 1 + event_counts[diff] * self.event_h + day_h
+                    pos_y = self.cal_y + self.title_h + 1 + event_counts[diff] * self.event_h + self.day_h
 
 
                 if not holidays:

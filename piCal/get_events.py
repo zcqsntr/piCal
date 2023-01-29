@@ -17,6 +17,7 @@ def get_events(calender_ids):
     Prints the start and name of the next 10 events on the user's calendar.
     """
     creds = None
+    SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
     # The file token.json stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
@@ -69,7 +70,7 @@ def get_events(calender_ids):
 
 if __name__ == '__main__':
     # If modifying these scopes, delete the file token.json.
-    SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
+    
 
     calendar_ids = ['6e56207b41dd787f37a38aa0794de8dab5243c611088ca04ad54ac9c478abbdb@group.calendar.google.com', 'en.uk#holiday@group.v.calendar.google.com']
     events, holidays = get_events(calendar_ids)

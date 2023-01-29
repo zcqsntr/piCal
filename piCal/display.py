@@ -13,6 +13,7 @@ from googleapiclient.errors import HttpError
 
 from get_events import get_events
 from get_weather import get_weather
+from get_image import CalDraw
 
 import sys
 import os
