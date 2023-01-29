@@ -66,13 +66,14 @@ while True:
 
         epd.display(epd.getbuffer(cal_draw.image_black))
         time.sleep(update_t*60)
-        
 
-    except IOError as e:
-        logging.info(e)
         
     except KeyboardInterrupt:
         epd.Clear()
         logging.info("ctrl + c:")
         epd7in5_V2.epdconfig.module_exit()
         exit()
+
+    except Exception as e:
+        logging.info(e)
+        time.sleep(update_t * 60)
