@@ -121,7 +121,6 @@ class CalDraw():
             else:
                 print((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h, self.cal_x+(i-3)*self.day_w, self.cal_y+self.day_h))
                 draw_black.rectangle((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h, self.cal_x+(i-3)*self.day_w, self.cal_y+2*self.day_h), fill=1, outline=0)
-
                 draw_black.rectangle((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h, self.cal_x+(i-3)*self.day_w, self.cal_y+self.day_h+self.title_h), fill=1, outline=0)
 
                 draw_black.text((self.cal_x+(i-4)*self.day_w+2, self.cal_y + self.day_h),'{1}\n{0}'.format(day, now.day + i),font = self.day_font)
