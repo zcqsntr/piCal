@@ -53,7 +53,6 @@ try:
     cal_draw.draw_calendar(events, holidays)
     cal_draw.draw_weather(weather)
 
-
     # Drawing on the Horizontal image
     logging.info("1.Drawing on the Horizontal image...")
     image_black = Image.new('1', (width, height), 255)  # 255: clear the frame
