@@ -4,5 +4,5 @@
 
 cd /
 cd /home/pi/piCal/piCal
-sudo python3 display.py
+python3 display.py
 cd /

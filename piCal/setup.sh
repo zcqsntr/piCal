@@ -11,3 +11,6 @@ sudo apt-get install python3-pil
 sudo apt-get install python3-numpy
 sudo pip3 install RPi.GPIO
 sudo pip3 install spidev
+
+
+chmod 755 run.sh
