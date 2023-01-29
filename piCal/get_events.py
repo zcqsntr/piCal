@@ -74,7 +74,6 @@ if __name__ == '__main__':
 
     calendar_ids = ['6e56207b41dd787f37a38aa0794de8dab5243c611088ca04ad54ac9c478abbdb@group.calendar.google.com', 'en.uk#holiday@group.v.calendar.google.com']
     events, holidays = get_events(calendar_ids)
-    print(events)
-    print(holidays)
+
     json.dump(holidays, open('data/holidays.json', 'w+'))
     json.dump(events, open('data/events.json', 'w+'))
