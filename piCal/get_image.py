@@ -33,19 +33,19 @@ class CalDraw():
         self.height = 480
 
         self.day_w = 199
-        self.day_h = self.day_w
+        self.day_h = 220
         self.cal_x = 0
-        self.cal_y = 50
-        self.title_h = 55
+        self.cal_y = 40
+        self.title_h = 67
         self.event_h = 25
 
-        big_size = 36
+        big_size = 40
         self.big_font = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), big_size)
 
-        day_size = 25
+        day_size = 30
         self.day_font = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), day_size)
 
-        event_size = 20
+        event_size = 25
         self.event_font = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), event_size)
 
         self.image_black = Image.new('1', (self.width, self.height), 255)  # 255: clear the frame
@@ -113,7 +113,7 @@ class CalDraw():
 
         draw_black = ImageDraw.Draw(self.image_black)
 
-        draw_black.text((0, 0), '{} {} {} {}'.format(weekdays[now.weekday()], now.day, months[now.month-1], now.year), font=self.big_font)
+        draw_black.text((0, -4), '{} {} {} {}'.format(weekdays[now.weekday()], now.day, months[now.month-1], now.year), font=self.big_font)
 
         linewidth = 1
         for i in range(7):
@@ -162,12 +162,12 @@ class CalDraw():
             weather_img = Image.open('./images/weather_type_icons/' + weather_ids[weather[i]['description']] + '.png').convert('P')
             if i < 4:
                 size = (int(weather_img.width * (self.title_h-4)/weather_img.height),self.title_h - 4)
-                coord = (self.cal_x+i*self.day_w+int(self.day_w*1/2), self.cal_y + 2)
+                coord = (self.cal_x+i*self.day_w+int(self.day_w*1/2.5), self.cal_y + 2)
 
 
             else:
                 size = (int(weather_img.width * (self.title_h-4)/weather_img.height) ,self.title_h - 4)
-                coord = (self.cal_x+(i-4)*self.day_w+ int(self.day_w*1/2), self.cal_y + self.day_h + 2)
+                coord = (self.cal_x+(i-4)*self.day_w+ int(self.day_w*1/2.5), self.cal_y + self.day_h + 2)
 
 
 
@@ -175,7 +175,7 @@ class CalDraw():
             weather_img = weather_img.resize(size)
             self.image_black.paste(weather_img, coord)
 
-            draw_black.text((coord[0] + int(self.day_w*1/2) - 30, coord[1] -2 ),
+            draw_black.text((coord[0] + 100, coord[1] - 2),
                             '{0}\n{1}'.format(round(weather[i]['max_temp']), round(weather[i]['min_temp'])), font=self.day_font)
 
 
