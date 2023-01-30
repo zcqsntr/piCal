@@ -39,7 +39,7 @@ calendar_ids = ['6e56207b41dd787f37a38aa0794de8dab5243c611088ca04ad54ac9c478abbd
 
 logging.basicConfig(level=logging.DEBUG)
 
-update_t = 1 # mins
+update_t = 60 # mins
 cal_draw = CalDraw()
 while True:
     try:
