@@ -66,7 +66,7 @@ try:
     epd.Clear()
 
     epd.display(epd.getbuffer(cal_draw.image_black))
-    time.sleep(update_t*60)
+    #time.sleep(update_t*60)
 
 
 except KeyboardInterrupt:
@@ -77,4 +77,4 @@ except KeyboardInterrupt:
 
 except Exception as e:
     logging.info(e)
-    time.sleep(update_t * 60)
+    #time.sleep(update_t * 60)
