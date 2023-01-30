@@ -178,7 +178,7 @@ class CalDraw():
             weather_img = weather_img.resize(size)
             self.image_black.paste(weather_img, coord)
 
-            draw_black.text((coord[0] + 100, coord[1] - 2),
+            draw_black.text((coord[0] + 83, coord[1] - 2),
                             '{0}\n{1}'.format(round(weather[i]['max_temp']), round(weather[i]['min_temp'])), font=self.day_font)
 
 
