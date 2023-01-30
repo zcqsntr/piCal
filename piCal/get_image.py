@@ -33,19 +33,19 @@ class CalDraw():
         self.height = 480
 
         self.day_w = 199
-        self.day_h = 220
-        self.cal_x = 0
-        self.cal_y = 40
+        self.day_h = 238
+        self.cal_x = 1
+        self.cal_y = 1
         self.title_h = 67
-        self.event_h = 25
+        self.event_h = 28
 
         big_size = 40
         self.big_font = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), big_size)
 
-        day_size = 30
+        day_size = 32
         self.day_font = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), day_size)
 
-        event_size = 25
+        event_size = 27
         self.event_font = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), event_size)
 
         self.image_black = Image.new('1', (self.width, self.height), 255)  # 255: clear the frame
@@ -91,7 +91,7 @@ class CalDraw():
                 if not holidays:
 
                     draw_black.text((pos_x, pos_y),
-                                ' {0}\n    {1}:{2}-{3}:{4}'.format(event['name'][:21], self.format_time(start.hour), self.format_time(start.minute), self.format_time(end.hour),self.format_time(end.minute)),
+                                ' {0}\n    {1}:{2}-{3}:{4}'.format(event['name'][:16], self.format_time(start.hour), self.format_time(start.minute), self.format_time(end.hour),self.format_time(end.minute)),
                                 font=self.event_font)
                     event_counts[diff] += 2
                 else:
@@ -113,7 +113,6 @@ class CalDraw():
 
         draw_black = ImageDraw.Draw(self.image_black)
 
-        draw_black.text((0, -4), '{} {} {} {}'.format(weekdays[now.weekday()], now.day, months[now.month-1], now.year), font=self.big_font)
 
         linewidth = 1
         for i in range(7):
@@ -135,6 +134,10 @@ class CalDraw():
 
                 draw_black.text((self.cal_x+(i-4)*self.day_w+2, self.cal_y + self.day_h),' {1}\n {0}'.format(day, new_date.day),font = self.day_font)
 
+        i = 7
+        draw_black.text((self.cal_x+(i-4)*self.day_w+50, self.cal_y + self.day_h + 50),
+                        '{}\n{} {}\n{}'.format(weekdays[now.weekday()], now.day, months[now.month - 1], now.year),
+                        font=self.big_font)
 
         event_counts = [0]*7
         event_counts = self.add_events(holidays, event_counts, holidays=True)
