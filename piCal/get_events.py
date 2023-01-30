@@ -63,7 +63,7 @@ def get_events(calender_ids):
 
         return all_es
 
-    except HttpError as error:
+    except Exception as error:
         print('An error occurred: %s' % error)
         return [[None], [None]]
 
