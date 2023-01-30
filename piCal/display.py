@@ -41,39 +41,40 @@ logging.basicConfig(level=logging.DEBUG)
 
 update_t = 60 # mins
 cal_draw = CalDraw()
-while True:
-    try:
-        width = 800
-        height = 480
+width = 800
+height = 480
+#while True:
+try:
 
 
-        events, holidays = get_events(calendar_ids)
-        weather = get_weather()
-        
-        cal_draw.draw_calendar(events, holidays)
-        cal_draw.draw_weather(weather)
 
-        # Drawing on the Horizontal image
-        logging.info("1.Drawing on the Horizontal image...")
-        image_black = Image.new('1', (width, height), 255)  # 255: clear the frame
-        image_red = Image.new('1', (width, height), 255)  # 255: clear the frame
+    events, holidays = get_events(calendar_ids)
+    weather = get_weather()
 
-        logging.basicConfig(level=logging.DEBUG)
-        epd = epd7in5_V2.EPD()
-        logging.info("init and Clear")
-        epd.init()
-        epd.Clear()
+    cal_draw.draw_calendar(events, holidays)
+    cal_draw.draw_weather(weather)
 
-        epd.display(epd.getbuffer(cal_draw.image_black))
-        time.sleep(update_t*60)
+    # Drawing on the Horizontal image
+    logging.info("1.Drawing on the Horizontal image...")
+    image_black = Image.new('1', (width, height), 255)  # 255: clear the frame
+    image_red = Image.new('1', (width, height), 255)  # 255: clear the frame
 
-        
-    except KeyboardInterrupt:
-        epd.Clear()
-        logging.info("ctrl + c:")
-        epd7in5_V2.epdconfig.module_exit()
-        exit()
+    logging.basicConfig(level=logging.DEBUG)
+    epd = epd7in5_V2.EPD()
+    logging.info("init and Clear")
+    epd.init()
+    epd.Clear()
 
-    except Exception as e:
-        logging.info(e)
-        time.sleep(update_t * 60)
+    epd.display(epd.getbuffer(cal_draw.image_black))
+    time.sleep(update_t*60)
+
+
+except KeyboardInterrupt:
+    epd.Clear()
+    logging.info("ctrl + c:")
+    epd7in5_V2.epdconfig.module_exit()
+    exit()
+
+except Exception as e:
+    logging.info(e)
+    time.sleep(update_t * 60)
