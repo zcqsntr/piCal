@@ -39,7 +39,7 @@ class CalDraw():
         self.title_h = 67
         self.event_h = 28
 
-        font = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'fonts', 'l-sans', 'lucidasansdemibold.ttf')
+        font = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'fonts', 'l-sans', 'LucidaSansRegular.ttf')
         big_size = 38
         self.big_font = ImageFont.truetype(os.path.join(picdir, font), big_size)
 
