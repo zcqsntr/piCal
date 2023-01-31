@@ -118,7 +118,7 @@ class CalDraw():
         draw_black = ImageDraw.Draw(self.image_black)
 
 
-        linewidth = 2
+        linewidth = 1
         for i in range(7):
 
             day_ind = (i+now.weekday())%7
