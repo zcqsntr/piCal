@@ -40,16 +40,16 @@ class CalDraw():
         self.event_h = 28
 
         font = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'fonts', 'l-sans', 'lucidasansdemibold.ttf')
-        big_size = 38
+        big_size = 39
         self.big_font = ImageFont.truetype(os.path.join(picdir, font), big_size)
 
-        day_size = 30
+        day_size = 31
         self.day_font = ImageFont.truetype(os.path.join(picdir, font), day_size)
 
-        event_size = 25
+        event_size = 26
         self.event_font = ImageFont.truetype(os.path.join(picdir, font), event_size)
 
-        tiny_size = 10
+        tiny_size = 12
         self.tiny_font = ImageFont.truetype(os.path.join(picdir, font), tiny_size)
 
         self.image_black = Image.new('1', (self.width, self.height), 255)  # 255: clear the frame
@@ -85,10 +85,10 @@ class CalDraw():
 
                 diff = d.days
                 if diff < 4:
-                    pos_x = self.cal_x + diff * self.day_w + 1
+                    pos_x = self.cal_x + diff * self.day_w - 4
                     pos_y = self.cal_y + self.title_h + 1 + event_counts[diff] * self.event_h
                 else:
-                    pos_x = self.cal_x + (diff-4) * self.day_w + 1
+                    pos_x = self.cal_x + (diff-4) * self.day_w - 4
                     pos_y = self.cal_y + self.title_h + 1 + event_counts[diff] * self.event_h + self.day_h
 
 
@@ -129,21 +129,21 @@ class CalDraw():
                 draw_black.rectangle((self.cal_x+i*self.day_w, self.cal_y, self.cal_x+(i+1)*self.day_w, self.cal_y+self.title_h), fill=1, outline=0, width = linewidth)
                 
                 
-                draw_black.text((self.cal_x+i*self.day_w+2, self.cal_y),' {1}\n {0}'.format(day, new_date.day),font = self.day_font)
+                draw_black.text((self.cal_x+i*self.day_w, self.cal_y),' {1}\n {0}'.format(day, new_date.day),font = self.day_font)
 
             else:
                 print((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h, self.cal_x+(i-3)*self.day_w, self.cal_y+self.day_h))
                 draw_black.rectangle((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h, self.cal_x+(i-3)*self.day_w, self.cal_y+2*self.day_h), fill=1, outline=0, width = linewidth)
                 draw_black.rectangle((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h, self.cal_x+(i-3)*self.day_w, self.cal_y+self.day_h+self.title_h), fill=1, outline=0, width = linewidth)
 
-                draw_black.text((self.cal_x+(i-4)*self.day_w+2, self.cal_y + self.day_h),' {1}\n {0}'.format(day, new_date.day),font = self.day_font)
+                draw_black.text((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h),' {1}\n {0}'.format(day, new_date.day),font = self.day_font)
 
         i = 7
         draw_black.text((self.cal_x+(i-4)*self.day_w+50, self.cal_y + self.day_h + 50),
                         '{}\n{} {}\n{}'.format(weekdays[now.weekday()], now.day, months[now.month - 1], now.year),
                         font=self.big_font)
 
-        draw_black.text((775, 470),
+        draw_black.text((767, 467),
                         '{}{}'.format(now.hour, now.minute),
                         font=self.tiny_font)
 
@@ -188,7 +188,7 @@ class CalDraw():
             weather_img = weather_img.resize(size)
             self.image_black.paste(weather_img, coord)
 
-            draw_black.text((coord[0] + 83, coord[1] - 2),
+            draw_black.text((coord[0] + 80, coord[1] - 2),
                             '{0}\n{1}'.format(round(weather[i]['max_temp']), round(weather[i]['min_temp'])), font=self.day_font)
 
 
