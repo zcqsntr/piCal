@@ -144,7 +144,7 @@ class CalDraw():
                         font=self.big_font)
 
         draw_black.text((767, 467),
-                        '{}{}'.format(now.hour, now.minute),
+                        '{}{}'.format(self.format_time(now.hour), self.format_time(now.minute)),
                         font=self.tiny_font)
 
         event_counts = [0]*7
