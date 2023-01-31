@@ -39,17 +39,18 @@ class CalDraw():
         self.title_h = 67
         self.event_h = 28
 
-        big_size = 40
-        self.big_font = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), big_size)
+        font = 'FORB.ttf'
+        big_size = 38
+        self.big_font = ImageFont.truetype(os.path.join(picdir, font), big_size)
 
-        day_size = 32
-        self.day_font = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), day_size)
+        day_size = 30
+        self.day_font = ImageFont.truetype(os.path.join(picdir, font), day_size)
 
-        event_size = 27
-        self.event_font = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), event_size)
+        event_size = 25
+        self.event_font = ImageFont.truetype(os.path.join(picdir, font), event_size)
 
-        tiny_size = 8
-        self.tiny_font = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), tiny_size)
+        tiny_size = 10
+        self.tiny_font = ImageFont.truetype(os.path.join(picdir, font), tiny_size)
 
         self.image_black = Image.new('1', (self.width, self.height), 255)  # 255: clear the frame
         self.image_red = Image.new('1', (self.width, self.height), 255)  # 255: clear the frame
@@ -69,7 +70,7 @@ class CalDraw():
         now = now.replace(hour=00, minute=00)
 
         draw_black = ImageDraw.Draw(self.image_black)
-
+        max_length = 14
         for event in events:
 
             start = parse(event['start']).astimezone(london_tz)
@@ -94,12 +95,12 @@ class CalDraw():
                 if not holidays:
 
                     draw_black.text((pos_x, pos_y),
-                                ' {0}\n    {1}:{2}-{3}:{4}'.format(event['name'][:16], self.format_time(start.hour), self.format_time(start.minute), self.format_time(end.hour),self.format_time(end.minute)),
+                                ' {0}\n    {1}:{2}-{3}:{4}'.format(event['name'][:max_length], self.format_time(start.hour), self.format_time(start.minute), self.format_time(end.hour),self.format_time(end.minute)),
                                 font=self.event_font)
                     event_counts[diff] += 2
                 else:
                     draw_black.text((pos_x, pos_y),
-                                    '{}'.format(event['name'][:21]),
+                                    '{}'.format(event['name'][:max_length]),
                                     font=self.event_font)
                     event_counts[diff] += 1
 
@@ -142,7 +143,7 @@ class CalDraw():
                         '{}\n{} {}\n{}'.format(weekdays[now.weekday()], now.day, months[now.month - 1], now.year),
                         font=self.big_font)
 
-        draw_black.text((782, 470),
+        draw_black.text((775, 470),
                         '{}{}'.format(now.hour, now.minute),
                         font=self.tiny_font)
 
