@@ -40,13 +40,13 @@ class CalDraw():
         self.event_h = 28
 
         font = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'fonts', 'l-sans', 'lucidasansdemibold.ttf')
-        big_size = 39
+        big_size = 40
         self.big_font = ImageFont.truetype(os.path.join(picdir, font), big_size)
 
-        day_size = 31
+        day_size = 32
         self.day_font = ImageFont.truetype(os.path.join(picdir, font), day_size)
 
-        event_size = 26
+        event_size = 27
         self.event_font = ImageFont.truetype(os.path.join(picdir, font), event_size)
 
         tiny_size = 12
@@ -70,13 +70,13 @@ class CalDraw():
         now = now.replace(hour=00, minute=00)
 
         draw_black = ImageDraw.Draw(self.image_black)
-        max_length = 14
+        max_length = 13
         for event in events:
 
             start = parse(event['start']).astimezone(london_tz)
             end = parse(event['end']).astimezone(london_tz)
 
-            print(event['name'], start, end)
+
             # if event more than a week in the future we can break
             if start - now > timedelta(days=7):
                 break
@@ -85,17 +85,17 @@ class CalDraw():
 
                 diff = d.days
                 if diff < 4:
-                    pos_x = self.cal_x + diff * self.day_w - 4
+                    pos_x = self.cal_x + diff * self.day_w - 6
                     pos_y = self.cal_y + self.title_h + 1 + event_counts[diff] * self.event_h
                 else:
-                    pos_x = self.cal_x + (diff-4) * self.day_w - 4
+                    pos_x = self.cal_x + (diff-4) * self.day_w - 6
                     pos_y = self.cal_y + self.title_h + 1 + event_counts[diff] * self.event_h + self.day_h
 
 
                 if not holidays:
 
                     draw_black.text((pos_x, pos_y),
-                                ' {0}\n    {1}:{2}-{3}:{4}'.format(event['name'][:max_length], self.format_time(start.hour), self.format_time(start.minute), self.format_time(end.hour),self.format_time(end.minute)),
+                                ' {0}\n   {1}:{2}-{3}:{4}'.format(event['name'][:max_length], self.format_time(start.hour), self.format_time(start.minute), self.format_time(end.hour),self.format_time(end.minute)),
                                 font=self.event_font)
                     event_counts[diff] += 2
                 else:
@@ -129,14 +129,14 @@ class CalDraw():
                 draw_black.rectangle((self.cal_x+i*self.day_w, self.cal_y, self.cal_x+(i+1)*self.day_w, self.cal_y+self.title_h), fill=1, outline=0, width = linewidth)
                 
                 
-                draw_black.text((self.cal_x+i*self.day_w, self.cal_y),' {1}\n {0}'.format(day, new_date.day),font = self.day_font)
+                draw_black.text((self.cal_x+i*self.day_w, self.cal_y -3),' {1}\n {0}'.format(day, new_date.day),font = self.day_font)
 
             else:
                 print((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h, self.cal_x+(i-3)*self.day_w, self.cal_y+self.day_h))
                 draw_black.rectangle((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h, self.cal_x+(i-3)*self.day_w, self.cal_y+2*self.day_h), fill=1, outline=0, width = linewidth)
                 draw_black.rectangle((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h, self.cal_x+(i-3)*self.day_w, self.cal_y+self.day_h+self.title_h), fill=1, outline=0, width = linewidth)
 
-                draw_black.text((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h),' {1}\n {0}'.format(day, new_date.day),font = self.day_font)
+                draw_black.text((self.cal_x+(i-4)*self.day_w, self.cal_y + self.day_h -3),' {1}\n {0}'.format(day, new_date.day),font = self.day_font)
 
         i = 7
         draw_black.text((self.cal_x+(i-4)*self.day_w+50, self.cal_y + self.day_h + 50),
@@ -188,7 +188,7 @@ class CalDraw():
             weather_img = weather_img.resize(size)
             self.image_black.paste(weather_img, coord)
 
-            draw_black.text((coord[0] + 80, coord[1] - 2),
+            draw_black.text((coord[0] + 79, coord[1] - 4),
                             '{0}\n{1}'.format(round(weather[i]['max_temp']), round(weather[i]['min_temp'])), font=self.day_font)
 
 
