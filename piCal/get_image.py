@@ -48,6 +48,9 @@ class CalDraw():
         event_size = 27
         self.event_font = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), event_size)
 
+        tiny_size = 8
+        self.tiny_font = ImageFont.truetype(os.path.join(picdir, 'Font.ttc'), tiny_size)
+
         self.image_black = Image.new('1', (self.width, self.height), 255)  # 255: clear the frame
         self.image_red = Image.new('1', (self.width, self.height), 255)  # 255: clear the frame
     
@@ -139,9 +142,15 @@ class CalDraw():
                         '{}\n{} {}\n{}'.format(weekdays[now.weekday()], now.day, months[now.month - 1], now.year),
                         font=self.big_font)
 
+        draw_black.text((782, 470),
+                        '{}{}'.format(now.hour, now.minute),
+                        font=self.tiny_font)
+
         event_counts = [0]*7
         event_counts = self.add_events(holidays, event_counts, holidays=True)
         event_counts = self.add_events(events, event_counts)
+
+
 
 
     def draw_weather(self, weather):
