@@ -7,12 +7,12 @@ import json
 import sys
 import os
 
-picdir = os.path.join(os.path.join(
-    os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'RaspberryPi_JetsonNano', 'python',
-                 'pic')))
-libdir = os.path.join(os.path.join(
-    os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'RaspberryPi_JetsonNano', 'python',
-                 'lib')))
+picdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'RaspberryPi_JetsonNano', 'python',
+                 'pic')
+libdir = os.path.join(os.path.dirname(os.path.dirname(os.path.realpath(__file__))), 'RaspberryPi_JetsonNano', 'python',
+                 'lib')
+
+
 if os.path.exists(libdir):
     sys.path.append(libdir)
 
@@ -39,7 +39,7 @@ class CalDraw():
         self.title_h = 67
         self.event_h = 28
 
-        font = 'FORB.ttf'
+        font = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'fonts', 'l-sans', 'lucidasansdemibold.ttf')
         big_size = 38
         self.big_font = ImageFont.truetype(os.path.join(picdir, font), big_size)
 
