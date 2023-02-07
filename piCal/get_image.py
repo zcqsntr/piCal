@@ -67,21 +67,24 @@ class CalDraw():
         london_tz = pytz.timezone('Europe/London')
         now = datetime.now().astimezone(london_tz)
 
-        now = now.replace(hour=00, minute=00)
+        now = now.replace(hour=00, minute=00, second=00, microsecond=00)
+
 
         draw_black = ImageDraw.Draw(self.image_black)
         max_length = 13
         for event in events:
 
+
             start = parse(event['start']).astimezone(london_tz)
             end = parse(event['end']).astimezone(london_tz)
 
-
             # if event more than a week in the future we can break
-            if start - now > timedelta(days=7):
+            if start - now >= timedelta(days=7):
                 break
             else:
+
                 d = start - now
+                print(event, start, now, d)
 
                 diff = d.days
                 if diff < 4:
@@ -100,7 +103,7 @@ class CalDraw():
                     event_counts[diff] += 2
                 else:
                     draw_black.text((pos_x, pos_y),
-                                    '{}'.format(event['name'][:max_length]),
+                                    ' {}'.format(event['name'][:max_length]),
                                     font=self.event_font)
                     event_counts[diff] += 1
 
