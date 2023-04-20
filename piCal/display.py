@@ -75,4 +75,5 @@ except KeyboardInterrupt:
 
 except Exception as e:
     logging.info(e)
+    print(e)
     #time.sleep(update_t * 60)

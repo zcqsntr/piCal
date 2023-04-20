@@ -7,4 +7,3 @@ cd /home/pi/piCal/piCal
 python3 display.py
 cd /
 sleep 10
-sudo reboot now
