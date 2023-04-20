@@ -46,8 +46,6 @@ height = 480
 #while True:
 try:
 
-
-
     events, holidays = get_events(calendar_ids)
     weather = get_weather()
 
@@ -66,7 +64,7 @@ try:
     epd.Clear()
 
     epd.display(epd.getbuffer(cal_draw.image_black))
-    #time.sleep(update_t*60)
+    epd.sleep()
 
 
 except KeyboardInterrupt:
