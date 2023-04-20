@@ -71,9 +71,11 @@ except KeyboardInterrupt:
     epd.Clear()
     logging.info("ctrl + c:")
     epd7in5_V2.epdconfig.module_exit()
+    epd.sleep()
     exit()
 
 except Exception as e:
     logging.info(e)
     print(e)
+    epd.sleep()
     #time.sleep(update_t * 60)
