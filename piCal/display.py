@@ -32,20 +32,18 @@ from PIL import Image,ImageDraw,ImageFont
 import traceback
 
 
-
-calendar_ids = ['6e56207b41dd787f37a38aa0794de8dab5243c611088ca04ad54ac9c478abbdb@group.calendar.google.com', 'en.uk#holiday@group.v.calendar.google.com']
-
-    
-
-logging.basicConfig(level=logging.DEBUG)
-
-update_t = 60 # mins
-cal_draw = CalDraw()
-width = 800
-height = 480
-#while True:
 try:
+    calendar_ids = ['6e56207b41dd787f37a38aa0794de8dab5243c611088ca04ad54ac9c478abbdb@group.calendar.google.com', 'en.uk#holiday@group.v.calendar.google.com']
 
+    logging.basicConfig(level=logging.DEBUG)
+
+    update_t = 60 # mins
+    cal_draw = CalDraw()
+    width = 800
+    height = 480
+    #while True:
+
+    epd = epd7in5_V2.EPD()
     events, holidays = get_events(calendar_ids)
     weather = get_weather()
 
@@ -58,7 +56,7 @@ try:
     image_red = Image.new('1', (width, height), 255)  # 255: clear the frame
 
     logging.basicConfig(level=logging.DEBUG)
-    epd = epd7in5_V2.EPD()
+
     logging.info("init and Clear")
     epd.init()
     epd.Clear()
@@ -71,7 +69,6 @@ except KeyboardInterrupt:
     epd.Clear()
     logging.info("ctrl + c:")
     epd7in5_V2.epdconfig.module_exit()
-    epd.sleep()
     exit()
 
 except Exception as e:
