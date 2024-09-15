@@ -31,6 +31,7 @@ import time
 from PIL import Image,ImageDraw,ImageFont
 import traceback
 
+epd = epd7in5_V2.EPD()
 
 try:
     calendar_ids = ['6e56207b41dd787f37a38aa0794de8dab5243c611088ca04ad54ac9c478abbdb@group.calendar.google.com', 'en.uk#holiday@group.v.calendar.google.com']
@@ -43,7 +44,7 @@ try:
     height = 480
     #while True:
 
-    epd = epd7in5_V2.EPD()
+    
     events, holidays = get_events(calendar_ids)
     weather = get_weather()
 
