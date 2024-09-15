@@ -8,7 +8,7 @@ def get_weather():
     # kilburn lat and long
     lat = 51.5398
     lon = 0.1985
-    url = 'https://api.openweathermap.org/data/2.5/onecall?lat={}&units=metric&lon={}&appid={}'.format(lat, lon,
+    url = 'https://api.openweathermap.org/data/3.0/onecall?lat={}&units=metric&exclude=hourly&lon={}&appid={}'.format(lat, lon,
                                                                                                        api_key)
     r = requests.get(url)
 
