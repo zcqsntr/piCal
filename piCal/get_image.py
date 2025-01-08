@@ -171,7 +171,7 @@ class CalDraw():
                        'moderate rain': '10', 'heavy intensity rain': '10',
                        'very heavy rain': '10', 'extreme rain': '10', 'freezing rain': '13',
                        'light intensity shower rain': '09', 'shower rain': '09',
-                       'heavy intensity shower rain': '09', 'ragged shower rain': '09', 'rain and snow': '13'}
+                       'heavy intensity shower rain': '09', 'ragged shower rain': '09', 'rain and snow': '13', 'light snow':'09'}
 
         for i in range(7):
 
